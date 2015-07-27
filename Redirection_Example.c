@@ -2,6 +2,21 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/* Important Note:
+ *  The child inherits copies of the parent's set of open file 
+ *  descriptors.  
+ *  Each file descriptor in the child refers to the same open file  
+ *  description (see open(2)) as the corresponding file descriptor in 
+ *  the parent.  This means that the two descriptors share open file 
+ *  status flags, current file offset, and signal-driven I/O attributes 
+ * (see the description of F_SETOWN and F_SETSIG in fcntl(2)).        
+ * 
+ *  HENCE:
+ *      Both parent and child may try to read and write at terminal 
+ *  simultaneously.
+ */
+
+
 
 void main()
 {
@@ -77,9 +92,8 @@ void main()
         
         close (my_Pipe2 [1]); // Because it has been duplicated.
         close (my_Pipe1 [1]); // Because it shall not be touched.
-        
-        
-     
+
+
         printf ("Hello\n");
     }
     else
