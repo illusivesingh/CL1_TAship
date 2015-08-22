@@ -5,6 +5,7 @@
 // f
 //g
 // h
+// l
 
 /*
 hold screen for accepting arrow keys
